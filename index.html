@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+
+    (function(graph){
+       function require(entry) {
+        function toResolvedPath(relativePath)
+         {
+             return require(graph[entry].dependencies[relativePath]);
+             }
+             var exports = {};
+            (function(require,code,exports){
+                     eval(code);
+                })(toResolvedPath,graph[entry].code,exports);
+                return exports;
+       }
+       require('./src/index.js')
+       })({"./src/index.js":{"dependencies":{"./msg.js":"./src/msg.js","./msg1.js":"./src/msg1.js"},"code":"\"use strict\";\n\nrequire(\"./msg.js\");\n\nrequire(\"./msg1.js\");\n\nconsole.log(2);"},"./src/msg.js":{"dependencies":{},"code":"\"use strict\";\n\nconsole.log(2);"},"./src/msg1.js":{"dependencies":{},"code":"\"use strict\";"}});
+    
+</script>
+</body>
+</html>
